@@ -33,6 +33,8 @@ var app = express();
 var url = require('url');
 var fs = require('fs');
 var request = require('request');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
 var quotelist;
 try {
@@ -42,6 +44,9 @@ catch (e) {
   quotelist = [];
   fs.writeFile('quotelist.json', '[]');
 }
+
+var url = 'mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist';
+
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -63,7 +68,18 @@ app.post('/post', function(req, res){
       'name': name,
       'quote': quote
     });
-    fs.writeFile('quotelist.json', JSON.stringify(quotelist));
+    // fs.writeFile('quotelist.json', JSON.stringify(quotelist));
+    
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected correctly to server.");
+      db.quotes.insertOne({
+          'name': name,
+          'quote': quote
+        });
+      db.close();
+    });
+    
     var body = {
       response_type: "in_channel",
       text: '"' + quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
@@ -74,9 +90,14 @@ app.post('/post', function(req, res){
     var name = command.toLowerCase();
     var quotes = quotelist.filter(function(x) { return (x.name == name); });
     
-    console.log('Looking up for', name, command, quotelist, quotes);
-    
-    if (quotes.length == 0) {
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected correctly to server.");
+      db.quotes.find({
+          'name': name,
+        });
+        
+        if (quotes.length == 0) {
       var body = {
         response_type: "in_channel",
         text: name + " has no quotes!"
@@ -91,6 +112,27 @@ app.post('/post', function(req, res){
       };
       res.send(body);
     }
+      
+      db.close();
+    });
+    
+    // console.log('Looking up for', name, command, quotelist, quotes);
+    
+    // if (quotes.length == 0) {
+    //   var body = {
+    //     response_type: "in_channel",
+    //     text: name + " has no quotes!"
+    //   };
+    //   res.send(body);
+    
+    // }
+    // else {
+    //   var body = {
+    //     response_type: "in_channel",
+    //     text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
+    //   };
+    //   res.send(body);
+    // }
     }
 });
 
