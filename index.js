@@ -72,7 +72,7 @@ app.post('/post', function(req, res){
   }
   else {
     var name = command;
-    var quotes = quotelist.filter(function(x) { return (x == name); });
+    var quotes = quotelist.filter(function(x) { return (x.name == name); });
     
     console.log('Looking up for', name, command, quotelist, quotes);
     
