@@ -57,7 +57,7 @@ app.post('/post', function(req, res){
   var command = req.body.text;
   
   if (command.match(/^add/) != null) {
-    var name = command.split(' ')[1];
+    var name = command.split(' ')[1].toLowerCase();
     var quote = command.split(' ').slice(2).join(' ');
     quotelist.push({
       'name': name,
@@ -71,7 +71,7 @@ app.post('/post', function(req, res){
     res.send(body);
   }
   else {
-    var name = command;
+    var name = command.toLowerCase();
     var quotes = quotelist.filter(function(x) { return (x.name == name); });
     
     console.log('Looking up for', name, command, quotelist, quotes);
@@ -87,7 +87,7 @@ app.post('/post', function(req, res){
     else {
       var body = {
         response_type: "in_channel",
-        text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name
+        text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
       };
       res.send(body);
     }
