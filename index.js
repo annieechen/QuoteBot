@@ -45,7 +45,7 @@ var assert = require('assert');
 //   fs.writeFile('quotelist.json', '[]');
 // }
 
-var url = 'mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist';
+var url = 'mongodb://elphaba:elphaba@ds047802.mlab.com:47802/';
 
 
 var bodyParser = require('body-parser');
