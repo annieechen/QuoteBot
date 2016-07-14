@@ -34,7 +34,14 @@ var url = require('url');
 var fs = require('fs');
 var request = require('request');
 
-var quotelist = JSON.parse(fs.readFileSync('quotelist.json').toString());
+var quotelist;
+try {
+  quotelist = JSON.parse(fs.readFileSync('quotelist.json').toString());
+}
+catch (e) {
+  quotelist = [];
+  fs.writeFile('quotelist.json', '[]');
+}
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
