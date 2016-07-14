@@ -33,7 +33,7 @@ var app = express();
 var url = require('url');
 var fs = require('fs');
 var request = require('request');
-var MongoClient = require('mongodb').MongoClient;
+var mongodb = require('mongodb');
 var assert = require('assert');
 
 // var quotelist;
@@ -70,7 +70,7 @@ app.post('/post', function(req, res){
     // });
     // fs.writeFile('quotelist.json', JSON.stringify(quotelist));
     
-    MongoClient.connect(url, function(err, db) {
+    mongodb.MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server.");
       db.collection('quotes').insertOne( {
@@ -90,7 +90,7 @@ app.post('/post', function(req, res){
     var name = command.toLowerCase();
     // var quotes = quotelist.filter(function(x) { return (x.name == name); });
     
-    MongoClient.connect(url, function(err, db) {
+    mongodb.MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server.");
       quotes = db.collection('quotes').find({
