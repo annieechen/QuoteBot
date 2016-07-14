@@ -66,7 +66,7 @@ app.post('/post', function(req, res){
     fs.writeFile('quotelist.json', JSON.stringify(quotelist));
     var body = {
       response_type: "in_channel",
-      text: '"' + quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name
+      text: '"' + quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
     };
     res.send(body);
   }
