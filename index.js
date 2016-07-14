@@ -45,8 +45,17 @@ var assert = require('assert');
 //   fs.writeFile('quotelist.json', '[]');
 // }
 
-var url = 'mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist';
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist');
 
+var db = mongoose.connection;
+
+var quote = new Schema({
+    name      : String,
+    quote     : String
+});
+
+var Quotes = mongoose.model('quotes', quote);
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
