@@ -36,14 +36,14 @@ var request = require('request');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
-var quotelist;
-try {
-  quotelist = JSON.parse(fs.readFileSync('quotelist.json').toString());
-}
-catch (e) {
-  quotelist = [];
-  fs.writeFile('quotelist.json', '[]');
-}
+// var quotelist;
+// try {
+//   quotelist = JSON.parse(fs.readFileSync('quotelist.json').toString());
+// }
+// catch (e) {
+//   quotelist = [];
+//   fs.writeFile('quotelist.json', '[]');
+// }
 
 var url = 'mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist';
 
@@ -64,10 +64,10 @@ app.post('/post', function(req, res){
   if (command.match(/^add/) != null) {
     var name = command.split(' ')[1].toLowerCase();
     var quote = command.split(' ').slice(2).join(' ');
-    quotelist.push({
-      'name': name,
-      'quote': quote
-    });
+    // quotelist.push({
+    //   'name': name,
+    //   'quote': quote
+    // });
     // fs.writeFile('quotelist.json', JSON.stringify(quotelist));
     
     MongoClient.connect(url, function(err, db) {
@@ -93,7 +93,7 @@ app.post('/post', function(req, res){
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server.");
-      db.quotes.find({
+      quotes = db.quotes.find({
           'name': name,
         });
         
