@@ -74,7 +74,7 @@ app.post('/post', function(req, res){
     var name = command;
     var quotes = quotelist.filter(function(x) { return (x == name); });
     
-    console.log('Looking up for', name, command);
+    console.log('Looking up for', name, command, quotelist, quotes);
     
     if (quotes.length == 0) {
       var body = {
