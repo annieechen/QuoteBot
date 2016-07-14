@@ -87,7 +87,7 @@ app.post('/post', function(req, res){
     else {
       var body = {
         response_type: "in_channel",
-        text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote + '" -' + name
+        text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name
       };
       res.send(body);
     }
