@@ -45,7 +45,7 @@ var assert = require('assert');
 //   fs.writeFile('quotelist.json', '[]');
 // }
 
-var url = 'mongodb://elphaba:elphaba@ds047802.mlab.com:47802/';
+var url = 'mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist';
 
 
 var bodyParser = require('body-parser');
@@ -73,7 +73,7 @@ app.post('/post', function(req, res){
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server.");
-      db.quotes.insertOne({
+      db.collection('quotes').insertOne( {
           'name': name,
           'quote': quote
         });
@@ -93,7 +93,7 @@ app.post('/post', function(req, res){
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server.");
-      quotes = db.quotes.find({
+      quotes = db.collection('quotes').find({
           'name': name,
         });
         
