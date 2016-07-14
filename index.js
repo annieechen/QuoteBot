@@ -1,4 +1,4 @@
-var express = require('express');
+/*var express = require('express');
 var app = express();
 var url = require('url');
 var request = require('request');
@@ -21,6 +21,68 @@ app.post('/post', function(req, res){
   };
 
   res.send(body);
+});
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+*/
+
+var express = require('express');
+var app = express();
+var url = require('url');
+var fs = require('fs');
+var request = require('request');
+
+var quotelist = JSON.parse(fs.readFileSync('quotelist.json').toString());
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set('port', (process.env.PORT || 9001));
+
+app.get('/', function(req, res){
+  res.send('It works!');
+});
+
+app.post('/post', function(req, res){
+  var command = req.body.text;
+  
+  if (command.match(/^add/) != null) {
+    var name = command.split(' ')[1];
+    var quote = command.split(' ').slice(2).join(' ');
+    quotelist.push({
+      'name': name,
+      'quote': quote
+    });
+    fs.writeFile('quotelist.json', JSON.stringify(quotelist));
+    var body = {
+      response_type: "in_channel",
+      text: '"' + quote + '" -' + name
+    };
+    res.send(body);
+  }
+  else {
+    var name = command;
+    var quotes = quotelist.filter(function(x) { return (x == name); });
+    
+    if (quotes.length == 0) {
+      var body = {
+        response_type: "in_channel",
+        text: name + " has no quotes!"
+      };
+      res.send(body);
+    
+    }
+    else {
+      var body = {
+        response_type: "in_channel",
+        text: '"' + quotes[Math.floor(Math.random() * quotes.length)] + '" -' + name
+      };
+      res.send(body);
+    }
+    }
 });
 
 app.listen(app.get('port'), function() {
