@@ -88,7 +88,7 @@ app.post('/post', function(req, res){
   }
   else {
     var name = command.toLowerCase();
-    var quotes = quotelist.filter(function(x) { return (x.name == name); });
+    // var quotes = quotelist.filter(function(x) { return (x.name == name); });
     
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
