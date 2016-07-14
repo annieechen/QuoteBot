@@ -67,6 +67,8 @@ app.post('/post', function(req, res){
     var name = command;
     var quotes = quotelist.filter(function(x) { return (x == name); });
     
+    console.log('Looking up for', name, command);
+    
     if (quotes.length == 0) {
       var body = {
         response_type: "in_channel",
