@@ -59,7 +59,10 @@ var Quote = mongoose.model('quotes', quoteschema);
 
 var testpotato = new Quote({ name: 'potato', quote: 'I am an egg'});
 console.log(testpotato.name);
-console.log("hello");
+// save potato to database
+testpotato.save(function(err, testpotato) {
+  if (err) return console.error(err);
+});
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
