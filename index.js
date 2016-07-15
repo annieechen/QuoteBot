@@ -120,7 +120,9 @@ app.post('/post', function(req, res){
       }
       else
       {
-        quotes = quotearray
+        quotes = quotearray;
+        console.log("quotes");
+        console.log(quotes);
       var body = {
         response_type: "in_channel",
         text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
