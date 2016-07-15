@@ -50,12 +50,15 @@ mongoose.connect('mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist');
 
 var db = mongoose.connection;
 
-var quote = new Schema({
+var quoteschema = mongoose.Schema({
     name      : String,
     quote     : String
 });
 
-var Quotes = mongoose.model('quotes', quote);
+var Quote = mongoose.model('quotes', quoteschema);
+
+var testpotato = new Quote({ name: 'potato', quote: 'I am an egg'});
+console.log(testpotato.name)
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -78,7 +81,7 @@ app.post('/post', function(req, res){
     //   'quote': quote
     // });
     // fs.writeFile('quotelist.json', JSON.stringify(quotelist));
-    
+    /*
     mongodb.MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server.");
@@ -88,7 +91,7 @@ app.post('/post', function(req, res){
         });
       db.close();
     });
-    
+    */
     var body = {
       response_type: "in_channel",
       text: '"' + quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
