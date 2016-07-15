@@ -57,12 +57,7 @@ var quoteschema = mongoose.Schema({
 
 var Quote = mongoose.model('quotes', quoteschema);
 
-var testpotato = new Quote({ name: 'potato', quote: 'I am an egg'});
-console.log(testpotato.name);
-// save potato to database
-testpotato.save(function(err, testpotato) {
-  if (err) return console.error(err);
-});
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -84,6 +79,12 @@ app.post('/post', function(req, res){
     //   'quote': quote
     // });
     // fs.writeFile('quotelist.json', JSON.stringify(quotelist));
+    var newquote = new Quote({ name: name, quote: quote});
+    console.log(newquote.name);
+    // save potato to database
+    newquote.save(function(err, newquote) {
+      if (err) return console.error(err);
+    });
     /*
     mongodb.MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
