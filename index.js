@@ -56,11 +56,11 @@ var quoteschema = mongoose.Schema({
 });
 
 var Quote = mongoose.model('quotes', quoteschema);
-
+/*
 Quote.find(function (err, kittens) {
   if (err) return console.error(err);
   console.log(kittens);
-});
+});*/
 
 
 var bodyParser = require('body-parser');
