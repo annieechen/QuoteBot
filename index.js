@@ -57,6 +57,11 @@ var quoteschema = mongoose.Schema({
 
 var Quote = mongoose.model('quotes', quoteschema);
 
+Quote.find(function (err, kittens) {
+  if (err) return console.error(err);
+  console.log(kittens);
+});
+
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -85,7 +90,7 @@ app.post('/post', function(req, res){
     newquote.save(function(err, newquote) {
       if (err) return console.error(err);
     });
-    /*
+    /* this does not work
     mongodb.MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server.");
