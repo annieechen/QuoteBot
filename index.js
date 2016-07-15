@@ -64,7 +64,7 @@ var oldquote = new Quote({ name: "Brian", quote:"Not throwing away my shot"});
       if (err) return console.error(err);
     });
 
-Quote.find(function (err, kittens) {
+Quote.find({"name" : "Annie"}, function (err, kittens) {
   if (err) return console.error(err);
   console.log(kittens);
 });
