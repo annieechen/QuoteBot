@@ -63,11 +63,11 @@ var oldquote = new Quote({ name: "Brian", quote:"Not throwing away my shot"});
     oldquote.save(function(err, oldquote) {
       if (err) return console.error(err);
     });
-/*
+
 Quote.find(function (err, kittens) {
   if (err) return console.error(err);
   console.log(kittens);
-});*/
+});
 
 
 var bodyParser = require('body-parser');
