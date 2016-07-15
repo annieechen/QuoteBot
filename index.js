@@ -56,6 +56,13 @@ var quoteschema = mongoose.Schema({
 });
 
 var Quote = mongoose.model('quotes', quoteschema);
+
+var oldquote = new Quote({ name: "Brian", quote:"Not throwing away my shot"});
+    console.log(oldquote.name);
+    // save potato to database
+    oldquote.save(function(err, oldquote) {
+      if (err) return console.error(err);
+    });
 /*
 Quote.find(function (err, kittens) {
   if (err) return console.error(err);
