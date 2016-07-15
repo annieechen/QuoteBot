@@ -99,7 +99,7 @@ app.post('/post', function(req, res){
     });
     var body = {
       response_type: "in_channel",
-      text: '"' + quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
+      text: name[0].toUpperCase() + name.slice(1).toLowerCase() + "'s quote has been added!"
     };
     res.send(body);
   }
