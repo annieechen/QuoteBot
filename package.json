@@ -1,7 +1,7 @@
 {
-  "name": "slack-genius",
+  "name": "cs50-quote-bot",
   "version": "1.0.0",
-  "description": "_A Slackbot that searches genius.com_",
+  "description": "_A Slackbot that displays staff quotes for Slackbot_",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.14.2",
