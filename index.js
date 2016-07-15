@@ -97,70 +97,37 @@ app.post('/post', function(req, res){
     newquote.save(function(err, newquote) {
       if (err) return console.error(err);
     });
-    /* this does not work
-    mongodb.MongoClient.connect(url, function(err, db) {
-      assert.equal(null, err);
-      console.log("Connected correctly to server.");
-      db.collection('quotes').insertOne( {
-          'name': name,
-          'quote': quote
-        });
-      db.close();
-    });
-    */
     var body = {
       response_type: "in_channel",
       text: '"' + quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
     };
     res.send(body);
   }
+  // looking for an existing quote
   else {
     var name = command.toLowerCase();
-    // var quotes = quotelist.filter(function(x) { return (x.name == name); });
-    
-    mongodb.MongoClient.connect(url, function(err, db) {
-      assert.equal(null, err);
-      console.log("Connected correctly to server.");
-      quotes = db.collection('quotes').find({
-          'name': name,
-        });
+    // var quotes = quotelist.filter(function(x) { return (x.name == name); })
+    Quote.find({"name" : name}, function (err, quotearray) {
+        if (err) return console.error(err);
+        console.log(quotearray);
         
-        if (quotes.length == 0) {
-      var body = {
-        response_type: "in_channel",
-        text: name + " has no quotes!"
-      };
+      if (quotearray.length == 0) {
+          var body = {
+          response_type: "in_channel",
+          text: name + " has no quotes!"
+          };
       res.send(body);
-    
-    }
-    else {
+      }
+      else
+      {
+        quotes = quotearray
       var body = {
         response_type: "in_channel",
         text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
       };
       res.send(body);
     }
-      
-      db.close();
     });
-    
-    // console.log('Looking up for', name, command, quotelist, quotes);
-    
-    // if (quotes.length == 0) {
-    //   var body = {
-    //     response_type: "in_channel",
-    //     text: name + " has no quotes!"
-    //   };
-    //   res.send(body);
-    
-    // }
-    // else {
-    //   var body = {
-    //     response_type: "in_channel",
-    //     text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
-    //   };
-    //   res.send(body);
-    // }
     }
 });
 
