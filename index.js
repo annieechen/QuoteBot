@@ -58,8 +58,8 @@ var quoteschema = mongoose.Schema({
 var Quote = mongoose.model('quotes', quoteschema);
 
 var testpotato = new Quote({ name: 'potato', quote: 'I am an egg'});
-console.log(testpotato.name)
-
+console.log(testpotato.name);
+alert(testpotato.name);
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
