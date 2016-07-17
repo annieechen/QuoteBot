@@ -9,8 +9,9 @@ var mongodb = require('mongodb');
 var assert = require('assert');
 
 // initialize mongoose and connect
+// NOTE: changed the URL to an environmental variable
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://elphaba:elphaba@ds047802.mlab.com:47802/quotelist');
+mongoose.connect(process.env.MONGO_URL);
 
 var db = mongoose.connection;
 
@@ -88,6 +89,7 @@ app.post('/post', function(req, res)
             }
             else
             {
+                // pick a random quote from available, print
                 quotes = quotearray;
                 var body = 
                 {
