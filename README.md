@@ -29,11 +29,11 @@ A random quote in the database by NAME will be returned in Slack. If no quotes m
 ###### Obviously these will be fleshed out further, likely in a blog post, but general outline for now.
 
 * open a nodeJS Cloud9 workspace
-..* with this repo cloned
+  * with this repo cloned
 * Set up Mlabs Account
 * Set up a Heroku instance
 * Connect the instance with this repo and push
-..* set up environmental variable on heroku for MONGO_URL
+  * set up environmental variable on heroku for MONGO_URL
 * Set up connection on Slack integration
 * Refresh slack and try it out
 * 
