@@ -25,7 +25,6 @@ var quoteschema = mongoose.Schema (
 // compile schema into model
 var Quote = mongoose.model('quotes', quoteschema);
 
-
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -84,8 +83,6 @@ app.post('/post', function(req, res)
                     response_type: "in_channel",
                     text: name + " has no quotes!"
                 };
-                // post to slack channel
-                res.send(body);
             }
             else
             {
@@ -96,8 +93,9 @@ app.post('/post', function(req, res)
                     response_type: "in_channel",
                     text: '"' + quotes[Math.floor(Math.random() * quotes.length)].quote.replace(/^\"/, '').replace(/\"$/, '') + '" -' + name[0].toUpperCase() + name.slice(1).toLowerCase()
                 };
-                res.send(body);
             }
+            // send message to channel with quote and author
+            res.send(body);
         });
     }
 });
