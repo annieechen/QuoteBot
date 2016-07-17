@@ -42,6 +42,11 @@ A random quote in the database by NAME will be returned in Slack. If no quotes m
 
 * heroku logs -t
 * console.log
+* when changing features and repushing to Heroku
+  * `git status`
+  * `git add <filename>`
+  * `git push heroku master`
+    * should see `build succeeded` message
 
 ## Known bugs/"features"/TODOS
 
